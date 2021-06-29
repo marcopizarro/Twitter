@@ -6,12 +6,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,21 +36,22 @@ public class TimelineActivity extends AppCompatActivity {
     Button btnLogout;
 
     @Override
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
         client = TwitterApp.getRestClient(this);
-        btnLogout = findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnLogout = findViewById(R.id.action_settings);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
-                client.clearAccessToken(); // forget who's logged in
-                finish(); // navigate backwards to Login screen
+                Toast.makeText(getApplicationContext(), "Tweet Out", Toast.LENGTH_SHORT).show();
             }
         });
-         //find recycler view
         rvTweets = findViewById(R.id.rvTweets);
         //init list of tweets and adapter
         tweets = new ArrayList<>();
@@ -56,6 +61,18 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setAdapter(adapter);
 
         populateHomeTimeline();
+    }
+
+    public void onComposeAction(MenuItem mi) {
+        Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
+                client.clearAccessToken(); // forget who's logged in
+                finish(); // navigate backwards to Login screen
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainactivity, menu);
+        return true;
     }
 
     private void populateHomeTimeline() {

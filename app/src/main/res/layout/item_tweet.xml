@@ -21,8 +21,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/ivProfileImage"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvName"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#A8A8A8"
         tools:text="\@marco_pizazz" />
 
     <TextView
@@ -30,11 +33,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/tvHandle"
         android:fontFamily="sans-serif-light"
-        android:textColor="#A5A5A5"
+        android:textColor="#A8A8A8"
         android:textSize="14sp"
         tools:text="now" />
 
@@ -46,5 +49,17 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        tools:text="Angry tweet here" />
+        tools:text="Angry tweet here"
+        android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="#FFFFFF"
+        tools:text="Marco Pizarro" />
 </RelativeLayout>

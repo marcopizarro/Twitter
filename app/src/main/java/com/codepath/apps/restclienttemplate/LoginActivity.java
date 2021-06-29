@@ -38,6 +38,9 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.login, menu);
+//		getSupportActionBar().setDisplayShowHomeEnabled(true);
+//		getSupportActionBar().setLogo(R.drawable.ic_launcher);
+//		getSupportActionBar().setDisplayUseLogoEnabled(true);
 		return true;
 	}
 
