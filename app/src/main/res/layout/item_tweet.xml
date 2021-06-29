@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp">
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -23,6 +24,19 @@
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         tools:text="\@marco_pizazz" />
+
+    <TextView
+        android:id="@+id/tvSince"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvHandle"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#A5A5A5"
+        android:textSize="14sp"
+        tools:text="now" />
 
     <TextView
         android:id="@+id/tvBody"
