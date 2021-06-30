@@ -24,7 +24,10 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/tvName"
+        android:ellipsize="end"
         android:fontFamily="sans-serif-light"
+        android:maxWidth="150dp"
+        android:maxLines="1"
         android:textColor="#A8A8A8"
         tools:text="\@marco_pizazz" />
 
@@ -60,6 +63,12 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:ellipsize="end"
+        android:lines="1"
+        android:maxWidth="100dp"
+        android:maxLines="1"
         android:textColor="#FFFFFF"
         tools:text="Marco Pizarro" />
+
+
 </RelativeLayout>

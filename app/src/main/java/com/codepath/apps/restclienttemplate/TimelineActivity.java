@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -49,7 +50,8 @@ public class TimelineActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Tweet Out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+                startActivity(intent);
             }
         });
         rvTweets = findViewById(R.id.rvTweets);
