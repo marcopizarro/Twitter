@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:background="#243447"
     tools:context=".TimelineActivity">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTweets"
@@ -17,6 +22,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="0dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -30,6 +36,7 @@
         android:backgroundTint="#1DA1F2"
         app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/outline_mode_edit_black_20" />
+
 
 
 </RelativeLayout>
