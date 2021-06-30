@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,16 @@ public class ComposeActivity extends AppCompatActivity {
     Button btnTweet;
     EditText etCompose;
     TwitterClient client;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.composeactivity, menu);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.twitter_logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -4,14 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/twitterDarkBlue"
     tools:context=".ComposeActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etEntire"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="What's on your mind?"
+        android:textColorHint="@android:color/white"
+        app:boxStrokeColor="@android:color/white"
+        app:boxStrokeErrorColor="@android:color/white"
         app:counterEnabled="true"
-        app:counterMaxLength="140">
+        app:counterMaxLength="140"
+        app:counterTextColor="@android:color/white"
+        app:hintTextColor="@android:color/white"
+        app:placeholderTextColor="@android:color/white">
 
         <EditText
             android:id="@+id/etCompose"
@@ -22,11 +31,16 @@
             android:layout_marginStart="7dp"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="7dp"
+            android:backgroundTint="@android:color/white"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="what's on your mind?"
             android:inputType="textMultiLine"
             android:minLines="5"
+            android:shadowColor="#FFFFFF"
+            android:textColor="@android:color/white"
+            android:textColorHighlight="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textColorLink="@android:color/white"
             app:counterEnabled="true"
             app:counterMaxLength="140" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -38,11 +38,12 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.login, menu);
-//		getSupportActionBar().setDisplayShowHomeEnabled(true);
-//		getSupportActionBar().setLogo(R.drawable.ic_launcher);
-//		getSupportActionBar().setDisplayUseLogoEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setLogo(R.drawable.twitter_logo);
+		getSupportActionBar().setDisplayUseLogoEnabled(true);
 		return true;
 	}
+
 
 	// OAuth authenticated successfully, launch primary authenticated activity
 	// i.e Display application "homepage"
