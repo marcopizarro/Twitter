@@ -40,6 +40,9 @@ public class TimelineActivity extends AppCompatActivity {
     TweetsAdapter adapter;
     Button btnLogout;
 
+    private SwipeRefreshLayout swipeContainer;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +50,21 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
         btnLogout = findViewById(R.id.action_settings);
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
-
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                adapter.clear();
+                populateHomeTimeline();
+                swipeContainer.setRefreshing(false);
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(R.color.twitterBlue);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
