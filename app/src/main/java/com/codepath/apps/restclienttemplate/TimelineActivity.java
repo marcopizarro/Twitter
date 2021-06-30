@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -39,6 +40,7 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdapter adapter;
     Button btnLogout;
+    ProgressBar indeterminateBar;
 
     private SwipeRefreshLayout swipeContainer;
 
@@ -50,6 +52,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
         btnLogout = findViewById(R.id.action_settings);
+//        indeterminateBar = findViewById(R.id.indeterminateBar);
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -81,8 +84,10 @@ public class TimelineActivity extends AppCompatActivity {
         //configure recycler view
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
-
+        swipeContainer.setRefreshing(true);
         populateHomeTimeline();
+        swipeContainer.setRefreshing(false);
+
     }
 
     @Override
