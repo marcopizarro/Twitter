@@ -53,7 +53,9 @@
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         tools:text="Angry tweet here"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:autoLink="all"
+        android:linksClickable="true"/>
 
     <TextView
         android:id="@+id/tvName"
@@ -83,6 +85,16 @@
         android:foregroundGravity="left"
         android:visibility="gone"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <Button
+        android:id="@+id/btnReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivImage"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:text="Reply" />
 
 
 </RelativeLayout>

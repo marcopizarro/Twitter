@@ -1,10 +1,15 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.jetbrains.annotations.NotNull;
+import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,8 +29,14 @@ import java.util.Locale;
 
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
+
+    public interface OnClickListener {
+        void onItemClicked(int position);
+    }
+
     Context context;
     List<Tweet> tweets;
+    OnClickListener clickListener;
 
     public void clear() {
         tweets.clear();
@@ -72,13 +84,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             Log.i("Tweets Adapter", "getRelativeTimeAgo failed");
             e.printStackTrace();
         }
-
         return "";
     }
 
-    public TweetsAdapter(Context context, List<Tweet> tweets) {
+    public TweetsAdapter(Context context, List<Tweet> tweets, OnClickListener clickListener) {
         this.context = context;
         this.tweets = tweets;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -109,6 +121,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvSince;
         TextView tvName;
         ImageView ivImage;
+        Button btnReply;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -118,11 +131,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvSince = itemView.findViewById(R.id.tvSince);
             tvName = itemView.findViewById(R.id.tvName);
             ivImage = itemView.findViewById(R.id.ivImage);
+            btnReply = itemView.findViewById(R.id.btnReply);
         }
 
-        public void bind(Tweet tweet) {
-            tvSince.setText(" · " + getRelativeTimeAgo(tweet.createdAt));
-            tvHandle.setText("@" + tweet.user.screenName);
+        public void bind(final Tweet tweet) {
+            tvSince.setText(String.format(" · %s", getRelativeTimeAgo(tweet.createdAt)));
+            tvHandle.setText(String.format("@%s", tweet.user.screenName));
             if (tweet.imageUrl != null) {
                 Glide.with(context)
                         .load(tweet.imageUrl)
@@ -131,6 +145,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             } else {
                 ivImage.setVisibility(View.GONE);
             }
+            btnReply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickListener.onItemClicked(getAdapterPosition());
+                }
+            });
             tvBody.setText(tweet.body);
             tvName.setText(tweet.user.name);
             Glide.with(context)

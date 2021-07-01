@@ -27,6 +27,7 @@ public class ComposeActivity extends AppCompatActivity {
     Button btnTweet;
     EditText etCompose;
     TwitterClient client;
+    String reply_id;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,6 +47,20 @@ public class ComposeActivity extends AppCompatActivity {
         btnTweet = findViewById(R.id.btnTweet);
         etCompose = findViewById(R.id.etCompose);
 
+        Intent i = getIntent();
+        if (i != null) {
+            Log.i("compose", "things");
+            Tweet tweet = Parcels.unwrap(i.getParcelableExtra("tweet"));
+            if (tweet != null) {
+                Log.i("compose", String.valueOf(tweet.user.screenName));
+                Log.i("compose", tweet.id);
+                etCompose.setText("@" + tweet.user.screenName + " ");
+                reply_id = tweet.id;
+            } else {
+                reply_id = "";
+            }
+        }
+
         client = TwitterApp.getRestClient(this);
         Log.i("compose", "created");
 
@@ -53,8 +68,6 @@ public class ComposeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i("compose", "clicked");
-
-                Toast.makeText(ComposeActivity.this, "here", Toast.LENGTH_SHORT);
                 String tweetContent = etCompose.getText().toString();
                 if (tweetContent.isEmpty()) {
                     Toast.makeText(ComposeActivity.this, "Tweet cannot be empty", Toast.LENGTH_SHORT).show();
@@ -63,30 +76,54 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this, "Tweet is over 140 characters", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Log.i("compose", tweetContent);
-                client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Headers headers, JSON json) {
-                        Log.i(TAG, "Success");
-                        try {
-                            Tweet tweet = Tweet.fromJson(json.jsonObject);
-                            Intent data = new Intent();
-                            // Pass relevant data back as a result
-                            data.putExtra("tweet", Parcels.wrap(tweet));
-//                            data.putExtra("code", 200); // ints work too
-                            // Activity finished ok, return the data
-                            setResult(RESULT_OK, data); // set result code and bundle data for response
-                            finish(); // closes the activity, pass data to parent
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                if (reply_id != ""){
+                    Log.i("compose", "reply");
+                    client.publishTweetReply(tweetContent, reply_id ,new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Headers headers, JSON json) {
+                            Log.i("compose", "Success");
+                            try {
+                                Tweet tweet = Tweet.fromJson(json.jsonObject);
+                                Intent data = new Intent();
+                                // Pass relevant data back as a result
+                                data.putExtra("tweet", Parcels.wrap(tweet));
+                                setResult(RESULT_OK, data);
+                                finish(); // closes the activity, pass data to parent
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                        Log.e(TAG, "error tweeting", throwable);
-                    }
-                });
+                        @Override
+                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                            Log.e(TAG, "error tweeting", throwable);
+                        }
+                    });
+                } else {
+                    Log.i("compose", "not reply");
+                    client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Headers headers, JSON json) {
+                            Log.i("compose", "Success");
+                            try {
+                                Tweet tweet = Tweet.fromJson(json.jsonObject);
+                                Intent data = new Intent();
+                                // Pass relevant data back as a result
+                                data.putExtra("tweet", Parcels.wrap(tweet));
+                                setResult(RESULT_OK, data);
+                                finish(); // closes the activity, pass data to parent
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                            Log.e(TAG, "error tweeting", throwable);
+                        }
+                    });
+                }
+
             }
         });
     }

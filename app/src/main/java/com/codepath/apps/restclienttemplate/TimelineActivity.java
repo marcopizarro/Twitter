@@ -40,10 +40,7 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdapter adapter;
     Button btnLogout;
-    ProgressBar indeterminateBar;
-
     private SwipeRefreshLayout swipeContainer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +49,11 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
         btnLogout = findViewById(R.id.action_settings);
-//        indeterminateBar = findViewById(R.id.indeterminateBar);
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
                 adapter.clear();
                 populateHomeTimeline();
                 swipeContainer.setRefreshing(false);
@@ -77,23 +70,34 @@ public class TimelineActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
+
+        TweetsAdapter.OnClickListener onClickListener = new TweetsAdapter.OnClickListener() {
+            @Override
+            public void onItemClicked(int position) {
+                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+                String start = tweets.get(position).user.screenName;
+                intent.putExtra("tweet",  Parcels.wrap(tweets.get(position)));
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        };
+
         rvTweets = findViewById(R.id.rvTweets);
         //init list of tweets and adapter
         tweets = new ArrayList<>();
-        adapter = new TweetsAdapter(this, tweets);
+        adapter = new TweetsAdapter(this, tweets, onClickListener);
         //configure recycler view
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
         swipeContainer.setRefreshing(true);
         populateHomeTimeline();
-        swipeContainer.setRefreshing(false);
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i("skk", String.valueOf(requestCode == REQUEST_CODE) + " : " + String.valueOf(resultCode == RESULT_OK));
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            assert data != null;
             // Extract name value from result extras
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             tweets.add(0, tweet);
@@ -104,8 +108,8 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void onComposeAction(MenuItem mi) {
         Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
-                client.clearAccessToken(); // forget who's logged in
-                finish(); // navigate backwards to Login screen
+        client.clearAccessToken(); // forget who's logged in
+        finish(); // navigate backwards to Login screen
     }
 
     @Override
@@ -124,20 +128,25 @@ public class TimelineActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.i(TAG, json.toString());
                 JSONArray jsonArray = json.jsonArray;
-                Log.e(TAG, "Successfully Pulled Data");
+                Log.i(TAG, "Successfully Pulled Data");
                 try {
                     tweets.addAll(Tweet.fromJsonArray(jsonArray));
                     adapter.notifyDataSetChanged();
+                    swipeContainer.setRefreshing(false);
+                    return;
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e(TAG, "error loading data", e);
+                    return;
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.i(TAG, "Error with request", throwable);
+                Log.i(TAG, "Error with request" + response, throwable);
+                return;
             }
         });
+
     }
 }
