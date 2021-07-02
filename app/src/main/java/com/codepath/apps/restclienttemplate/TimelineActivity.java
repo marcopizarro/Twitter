@@ -126,7 +126,6 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, json.toString());
                 JSONArray jsonArray = json.jsonArray;
                 Log.i(TAG, "Successfully Pulled Data");
                 try {
@@ -143,7 +142,7 @@ public class TimelineActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.i(TAG, "Error with request" + response, throwable);
+                Log.e(TAG, "Error with request" + response, throwable);
                 return;
             }
         });

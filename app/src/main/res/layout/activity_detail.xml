@@ -99,16 +99,16 @@
         android:cropToPadding="true"
         android:src="@drawable/vector_compose_dm_fab" />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/btnLikeDetail"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_below="@id/ivImageDetail"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:layout_toEndOf="@+id/btnReplyDetail"-->
-<!--        android:src="@drawable/ic_vector_heart"-->
-<!--        />-->
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/btnLikeDetail"-->
+    <!--        android:layout_width="50dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_below="@id/ivImageDetail"-->
+    <!--        android:layout_marginStart="5dp"-->
+    <!--        android:layout_marginTop="5dp"-->
+    <!--        android:layout_toEndOf="@+id/btnReplyDetail"-->
+    <!--        android:src="@drawable/ic_vector_heart"-->
+    <!--        />-->
 
 
 </RelativeLayout>

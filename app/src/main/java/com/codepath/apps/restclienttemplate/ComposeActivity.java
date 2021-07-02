@@ -49,12 +49,9 @@ public class ComposeActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         if (i != null) {
-            Log.i("compose", "things");
             Tweet tweet = Parcels.unwrap(i.getParcelableExtra("tweet"));
             if (tweet != null) {
-                Log.i("compose", String.valueOf(tweet.user.screenName));
-                Log.i("compose", tweet.id);
-                etCompose.setText("@" + tweet.user.screenName + " ");
+                etCompose.setText(String.format("@%S", tweet.user.screenName + " "));
                 reply_id = tweet.id;
             } else {
                 reply_id = "";
@@ -62,12 +59,9 @@ public class ComposeActivity extends AppCompatActivity {
         }
 
         client = TwitterApp.getRestClient(this);
-        Log.i("compose", "created");
-
         btnTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("compose", "clicked");
                 String tweetContent = etCompose.getText().toString();
                 if (tweetContent.isEmpty()) {
                     Toast.makeText(ComposeActivity.this, "Tweet cannot be empty", Toast.LENGTH_SHORT).show();
@@ -76,12 +70,10 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this, "Tweet is over 140 characters", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (reply_id != ""){
-                    Log.i("compose", "reply");
-                    client.publishTweetReply(tweetContent, reply_id ,new JsonHttpResponseHandler() {
+                if (reply_id != "") {
+                    client.publishTweetReply(tweetContent, reply_id, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Headers headers, JSON json) {
-                            Log.i("compose", "Success");
                             try {
                                 Tweet tweet = Tweet.fromJson(json.jsonObject);
                                 Intent data = new Intent();
@@ -100,11 +92,10 @@ public class ComposeActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Log.i("compose", "not reply");
                     client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Headers headers, JSON json) {
-                            Log.i("compose", "Success");
+
                             try {
                                 Tweet tweet = Tweet.fromJson(json.jsonObject);
                                 Intent data = new Intent();

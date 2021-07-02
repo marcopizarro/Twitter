@@ -84,7 +84,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 return diff / DAY_MILLIS + " d";
             }
         } catch (ParseException e) {
-            Log.i("Tweets Adapter", "getRelativeTimeAgo failed");
+            Log.e("TweetsAdapter", "getRelativeTimeAgo failed");
             e.printStackTrace();
         }
         return "";
@@ -143,7 +143,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         Tweet tweet = tweets.get(position);
                         // We can access the data within the views
                         Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                        intent.putExtra("tweet",  Parcels.wrap(tweet));
+                        intent.putExtra("tweet", Parcels.wrap(tweet));
                         view.getContext().startActivity(intent);
                     }
                 }

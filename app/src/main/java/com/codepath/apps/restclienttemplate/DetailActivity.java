@@ -35,7 +35,7 @@ public class DetailActivity extends AppCompatActivity {
     ImageView ivImage;
     Tweet tweet;
     ImageButton btnReply;
-//    ImageButton btnLike;
+    //    ImageButton btnLike;
     TwitterClient client;
 
     public static final int REQUEST_CODE = 40;
