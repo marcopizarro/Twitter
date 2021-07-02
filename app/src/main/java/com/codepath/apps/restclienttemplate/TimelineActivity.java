@@ -76,7 +76,7 @@ public class TimelineActivity extends AppCompatActivity {
             public void onItemClicked(int position) {
                 Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
                 String start = tweets.get(position).user.screenName;
-                intent.putExtra("tweet",  Parcels.wrap(tweets.get(position)));
+                intent.putExtra("tweet", Parcels.wrap(tweets.get(position)));
                 startActivityForResult(intent, REQUEST_CODE);
             }
         };
@@ -95,7 +95,6 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("skk", String.valueOf(requestCode == REQUEST_CODE) + " : " + String.valueOf(resultCode == RESULT_OK));
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             assert data != null;
             // Extract name value from result extras
@@ -115,7 +114,6 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.mainactivity, menu);
-
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.twitter_logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);

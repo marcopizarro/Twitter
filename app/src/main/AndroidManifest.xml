@@ -13,10 +13,11 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".ComposeActivity"></activity>
+        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".ComposeActivity" />
         <activity
             android:name=".TimelineActivity"
-            android:label=""></activity>
+            android:label="" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"

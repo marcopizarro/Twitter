@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.restclienttemplate.models.User;
 
 import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
@@ -132,7 +134,21 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvName = itemView.findViewById(R.id.tvName);
             ivImage = itemView.findViewById(R.id.ivImage);
             btnReply = itemView.findViewById(R.id.btnReply);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition(); // gets item position
+                    if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                        Tweet tweet = tweets.get(position);
+                        // We can access the data within the views
+                        Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                        intent.putExtra("tweet",  Parcels.wrap(tweet));
+                        view.getContext().startActivity(intent);
+                    }
+                }
+            });
         }
+
 
         public void bind(final Tweet tweet) {
             tvSince.setText(String.format(" · %s", getRelativeTimeAgo(tweet.createdAt)));
