@@ -105,9 +105,11 @@ public class TimelineActivity extends AppCompatActivity {
         }
     }
 
-    public void onComposeAction(MenuItem mi) {
+    public void onLogout(MenuItem mi) {
         Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
         client.clearAccessToken(); // forget who's logged in
+        Intent intent = new Intent(TimelineActivity.this, LoginActivity.class);
+        startActivity(intent);
         finish(); // navigate backwards to Login screen
     }
 

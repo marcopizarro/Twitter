@@ -17,7 +17,7 @@
         app:boxStrokeColor="@android:color/white"
         app:boxStrokeErrorColor="@android:color/white"
         app:counterEnabled="true"
-        app:counterMaxLength="140"
+        app:counterMaxLength="280"
         app:counterTextColor="@android:color/white"
         app:hintTextColor="@android:color/white"
         app:placeholderTextColor="@android:color/white">

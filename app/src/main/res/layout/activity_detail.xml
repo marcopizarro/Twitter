@@ -86,15 +86,29 @@
         android:visibility="visible"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnReplyDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@id/ivImageDetail"
+        android:layout_centerInParent="false"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivProfileImageDetail"
-        android:text="Reply" />
+        android:adjustViewBounds="false"
+        android:cropToPadding="true"
+        android:src="@drawable/vector_compose_dm_fab" />
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/btnLikeDetail"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_below="@id/ivImageDetail"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_toEndOf="@+id/btnReplyDetail"-->
+<!--        android:src="@drawable/ic_vector_heart"-->
+<!--        />-->
 
 
 </RelativeLayout>

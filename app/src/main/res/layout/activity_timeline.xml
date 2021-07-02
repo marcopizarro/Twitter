@@ -38,7 +38,7 @@
         android:layout_marginBottom="15dp"
         android:backgroundTint="#1DA1F2"
         app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@drawable/outline_mode_edit_black_20" />
+        app:srcCompat="@drawable/ic_vector_compose" />
 
 
 
